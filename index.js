@@ -4,7 +4,6 @@ function body() {
     body.style.display = 'grid';
     body.style.placeContent = 'center';
     body.style.height = '100vh';
-    body.style.overflow = 'hidden';
 };
 body();
 
@@ -35,6 +34,7 @@ function calcDisplay() {
     numberD.style.borderRadius = '.5rem';
     numberD.style.color = 'white';
     numberD.style.fontSize = '3em';
+    numberD.style.overflow = 'auto';
     parent.append(numberD);
 }
 calcDisplay();
