@@ -93,49 +93,54 @@ function createButtons() {
     
     const equal = document.querySelector('.b-19');
     equal.style.gridArea = '5 / 3 / 6 / 5';
+    
+    const github = document.querySelector('.b-1');
+    github.addEventListener('click', function() {
+        window.location ='https://github.com/HenrikesA';
+    })
 }
 createButtons();
 
 
 // FUNCTIONALITY  
 class Calculator {
-    constructor(previousOperandTextElement, currentOperandTextElement){
-        this.previousOperandTextElement = previousOperandTextElement
-        this.currentOperandTextElement = currentOperandTextElement
+    constructor(previousD, currentD){
+        this.previousD = previousD
+        this.currentD = currentD
         this.clear()
     }
     
     clear() {
-        this.currentOperand = ''
-        this.previousOperand = ''
+        this.currentOp = ''
+        this.previousOp = ''
         this.operation = undefined
     }
 
     delete() {
-        this.currentOperand = this.currentOperand.toString().slice(0, -1)
+        this.currentOp = this.currentOp.toString().slice(0, -1)
     }
 
     appendNumber(number) {
-        if (number == '.' && this.currentOperand.includes('.')) return
-        this.currentOperand = this.currentOperand.toString() + number.toString()
+        if (number == '.' && this.currentOp.includes('.')) return
+        this.currentOp = this.currentOp.toString() + number.toString()
     }
 
     chooseOperation(operation){
-        if(this.currentOperand === '') return
-        if(this.previousOperand !== '') {
+        if(this.currentOp === '') return
+        if(this.previousOp !== '') {
             this.compute()
         }
 
         this.operation = operation
-        this.previousOperand = this.currentOperand
-        this.currentOperand = ''
+        this.previousOp = this.currentOp
+        this.currentOp = ''
     }
 
     compute(){
         let computation
 
-        const prev = parseFloat(this.previousOperand)
-        const current = parseFloat(this.currentOperand)
+        const prev = parseFloat(this.previousOp)
+        const current = parseFloat(this.currentOp)
         if(isNaN(prev) || isNaN(current)) return
 
         switch (this.operation) {
@@ -154,7 +159,7 @@ class Calculator {
             default: return
         }
 
-        this.currentOperand = computation
+        this.currentOp = computation
         this.operation = undefined
         this.previousOperand = ''
     }
@@ -178,57 +183,54 @@ class Calculator {
     }
 
     updateDisplay(){
-        this.currentOperandTextElement.innerText =
-            this.getDisplayNumber(this.currentOperand)
+        this.currentD.innerText =
+            this.getDisplayNumber(this.currentOp)
         if(this.operation != null) {
-            this.previousOperandTextElement.innerText =
-            `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+            this.previousD.innerText =
+            `${this.getDisplayNumber(this.previousOp)} ${this.operation}`
         } else {
-            this.previousOperandTextElement.innerText = ''
+            this.previousD.innerText = ''
         }
     }
 }
 
+const numbers = document.querySelectorAll('.b-5, .b-6, .b-7, .b-9, .b-10, .b-11, .b-13, .b-14, .b-15, .b-17, .b-18')
+const operators = document.querySelectorAll('.b-4, .b-8, .b-12, .b-16')
+const equal = document.querySelector('.b-19')
+const dlt = document.querySelector('.b-3')
+const clear = document.querySelector('.b-2')
+
 const previousD = document.getElementById('previousOp')
 const currentD = document.getElementById('currentOp')
 
-const numberButtons = document.querySelectorAll('.b-5, .b-6, .b-7, .b-9, .b-10, .b-11, .b-13, .b-14, .b-15, .b-17, .b-18')
-const operationButtons = document.querySelectorAll('.b-4, .b-8, .b-12, .b-16')
-const equalsButton = document.querySelector('.b-19')
-const deleteButton = document.querySelector('.b-3')
-const allClearButton = document.querySelector('.b-2')
+const calculator = new Calculator(previousD, currentD)
 
-const previousOperandTextElement = document.getElementById('previousOp')
-const currentOperandTextElement = document.getElementById('currentOp')
-
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
-
-numberButtons.forEach(button => {
+numbers.forEach(button => {
     button.addEventListener('click', () => {
         calculator.appendNumber(button.innerText);
         calculator.updateDisplay();
     });
 });
 
-operationButtons.forEach(button => {
+operators.forEach(button => {
     button.addEventListener('click', () => {
         calculator.chooseOperation(button.innerText);
         calculator.updateDisplay();
     });
 });
 
-equalsButton.addEventListener('click', button => {
+equal.addEventListener('click', button => {
     calculator.compute();
     calculator.updateDisplay()
 });
 
-allClearButton.addEventListener('click', button => {
-    calculator.clear();
-    calculator.updateDisplay()
-});
-
-deleteButton.addEventListener('click', button => {
+dlt.addEventListener('click', button => {
     calculator.delete();
     calculator.updateDisplay()
 });
-// console.log(calculator);
+
+clear.addEventListener('click', button => {
+    calculator.clear();
+    calculator.updateDisplay()
+});
+// these nice line of code examples are from dev simplyfied
