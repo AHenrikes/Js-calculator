@@ -2,3 +2,4 @@
 
 another pet project to test my ability in creating a calculator just by using Javascript.
 
+(Looks better on Firefox)
