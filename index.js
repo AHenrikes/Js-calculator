@@ -96,7 +96,7 @@ function createButtons() {
     
     const github = document.querySelector('.b-1');
     github.addEventListener('click', function() {
-        window.location ='https://github.com/HenrikesA';
+        window.location ='https://github.com/AHenrikes';
     })
 }
 createButtons();
