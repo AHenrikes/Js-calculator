@@ -1,4 +1,4 @@
-# [Calculator Project](https://henrikesa.github.io/Js-calculator/)
+# [Calculator Project](https://github.com/AHenrikes/Js-calculator)
 
 This repository contains a JavaScript calculator project that allows users to perform basic <br>
 arithmetic operations. The calculator is built using HTML, CSS, and JavaScript.
